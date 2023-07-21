@@ -1,0 +1,17 @@
+.notesContainer{
+  display: flex;
+  flex-direction: column;
+
+  .title{
+    color: #4d4d4d;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1.5;
+    text-decoration: underline;
+    text-decoration-color: #0BB7A5;
+  }
+  .searchContainer{
+    display: flex;
+    margin-top: 30px;
+  }
+}
