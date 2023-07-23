@@ -51,7 +51,7 @@ export const AddModals = () => {
 
                 <div className={s.tags}>
                     {tags.map((t, index) => {
-                        return <span key={index}>{t}</span>
+                        return <span style={{color: '#0BB7A5', fontWeight: 'bold'}} key={index}>{t}</span>
                     })}
                 </div>
 

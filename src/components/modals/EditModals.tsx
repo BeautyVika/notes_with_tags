@@ -65,11 +65,19 @@ export const EditModals: FC<EditModalsPropsType> = ({noteId, noteDescription, ta
                     ? <TextareaAutosize value={note}
                                         onChange={onChangeHandler}
                                         className={s.area} />
-                    : <p>{noteDescription}</p>}
+                    : <p>{noteDescription.split(' ')
+                        .map(t => {
+                            if(tags.some(e=> e.toUpperCase() === t.toUpperCase() || e.substring(1).toUpperCase() === t.toUpperCase())){
+                                return <span style={{color: '#0BB7A5', fontWeight: 'bold'}}>{t} </span>
+                            }else {
+                                return <span>{t} </span>
+                            }
+
+                        })}</p>}
 
                 <div className={s.tags}>
                     {tags.map((t, index) => {
-                        return <span key={index}>{t}</span>
+                        return <span style={{color: '#0BB7A5', fontWeight: 'bold'}} key={index}>{t}</span>
                     })}
                 </div>
 

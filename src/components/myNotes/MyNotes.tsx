@@ -1,33 +1,48 @@
-import React, {useEffect} from 'react';
+import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import s from './MyNotes.module.scss'
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import Typography from "@mui/material/Typography";
 import {AddModals} from "../../components/modals/AddModals";
-import {AppUseSelector, useAppDispatch} from "../../store/store";
 import {Note} from "./note/Note";
-import {getAllNotes} from "../../store/notesReducer";
+import {NoteType} from "../../store/notesReducer";
 
-export const MyNotes = () => {
+type MyNotesType = {
+    notes: Array<NoteType>
+}
 
-    const notes = AppUseSelector(state => state.notes)
-    const dispatch = useAppDispatch()
+export const MyNotes: FC<MyNotesType> = ({notes}) => {
+
+    const [search, setSearch] = useState<string>('')
+    const [allNotes, setAllNotes] = useState<Array<NoteType>>([])
 
     useEffect(() => {
-        dispatch(getAllNotes())
-    },[])
+        setAllNotes(notes);
+    }, [notes])
 
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.currentTarget.value)
+    }
+    const onSearchHandler = () => {
+        if(search === '') return setAllNotes(notes)
+
+        const searchArr = search.split(' ')
+        const filteredNotes = notes.filter(e =>  e.tags.some( r => searchArr.includes(r)))
+        setAllNotes(filteredNotes)
+    }
 
     return (
         <div className={s.notes}>
 
-            <Typography className={s.title} variant="h1" component="h1">My Notes</Typography>
-
             <div className={s.searchContainer}>
-                <TextField color={"success"} label="note search" variant="outlined" />
+                <TextField color={"success"}
+                           className={s.searchField}
+                           label="note search"
+                           variant="outlined"
+                           onChange={handleChange}
+                />
 
-                <IconButton>
+                <IconButton onClick={onSearchHandler}>
                     <SearchIcon sx={{color: '#0BB7A5'}} fontSize={'large'}/>
                 </IconButton>
 
@@ -35,12 +50,12 @@ export const MyNotes = () => {
             </div>
 
             <div className={s.notesContainer}>
-            {notes.map((note) => {
-                return <Note key={note.id}
-                             tags={note.tags}
-                             id={note.id}
-                             description={note.description}/>
-            })}
+                {allNotes.map((note) => {
+                    return <Note key={note.id}
+                                 tags={note.tags}
+                                 id={note.id}
+                                 description={note.description}/>
+                })}
             </div>
 
         </div>
