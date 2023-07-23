@@ -1,6 +1,4 @@
-.notesContainer{
-  display: flex;
-  flex-direction: column;
+.notes{
 
   .title{
     color: #4d4d4d;
@@ -12,6 +10,12 @@
   }
   .searchContainer{
     display: flex;
+    margin-top: 30px;
+  }
+  .notesContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
     margin-top: 30px;
   }
 }

@@ -1,0 +1,24 @@
+.area {
+  width: 430px;
+  min-height: 200px;
+  margin-top: 15px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 12px;
+  border: 0.5px solid #0BB7A5;
+  border-radius: 12px 12px 0 12px;
+  &:focus {
+    border-color: #1db0a4;
+    box-shadow: 0 0 0 3px #1cd3bf;
+  }
+  &:focus-visible {
+    outline: 0;
+  }
+}
+.tags{
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  color: #4d4d4d;
+}
