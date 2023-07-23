@@ -21,12 +21,11 @@ export const Note: FC<NoteType> = ({description, tags, id}) => {
                 minHeight: '100px'
             }}>
             <p>{description}</p>
-            {tags.map(t => <span>{t}</span>)}
 
-
+            {tags.map((t, index) => <span style={{fontWeight: 'bold'}} key={index}>{t}</span>)}
 
             <div>
-                <EditModals/>
+                <EditModals noteId={id} noteDescription={description} tagsNote={tags}/>
                 <DeleteModals noteId={id} noteDescription={description}/>
             </div>
         </Paper>
