@@ -34,13 +34,12 @@ export const EditModals: FC<EditModalsPropsType> = ({noteId, noteDescription, ta
 
     const onChangeHandler = (e: any) => {
         const value = e.currentTarget.value;
-        console.log(value)
         const newArr = value.split(' ').filter((str: string) => Array.from(str)[0] === '#')
         setTags(newArr)
         setNote(value)
     }
     const handleSave = () => {
-        dispatch(updateNote(noteId, {description: note, tags}))
+        dispatch(updateNote(noteId, {id: noteId, description: note, tags}))
         handleClose()
     }
 

@@ -19,7 +19,7 @@ export const notesReducer = (state = initialState, action: any): InitialStateTyp
             return [...action.notes]
         case "EDIT-NOTES":
             return state.map(note => note.id === action.id
-                ? {id: note.id, ...action.editNote}
+                ? {...action.editNote}
                 : note)
     }
     return state
@@ -31,7 +31,7 @@ export const addNotes = (newNote: NoteType) => {
 export const getAllNotesFromLocalStorage = (notes: Array<NoteType>) => {
     return {type: "GET-NOTES", notes} as const
 }
-export const editNotes = (id: string, editNote: Omit<NoteType, 'id'>) => {
+export const editNotes = (id: string, editNote: NoteType) => {
     return {type: "EDIT-NOTES", id, editNote} as const
 }
 
@@ -53,7 +53,7 @@ export const deleteNote = (idNote: string) => (dispatch: Dispatch) => {
     dispatch(getAllNotesFromLocalStorage(notesAfterDelete))
 }
 
-export const updateNote = (id: string, editNote: Omit<NoteType, 'id'>) =>
+export const updateNote = (id: string, editNote: NoteType) =>
     (dispatch: Dispatch) => {
 
         localStorage.setItem('notes',
